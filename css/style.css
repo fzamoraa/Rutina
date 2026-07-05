@@ -1,0 +1,587 @@
+/* ==========================================================================
+   RUTINAGYM — design tokens
+   Paleta: fondo tinta noche (azul-ciruela), un color de acento por día
+   (así el color codifica el grupo muscular, no decora porque sí).
+   ========================================================================== */
+:root{
+  --bg: #1a1523;
+  --bg-soft: #201a2b;
+  --surface: #241d30;
+  --surface-2: #2e2540;
+  --border: rgba(245, 242, 250, .08);
+  --border-strong: rgba(245, 242, 250, .16);
+  --text: #f5f2fa;
+  --text-muted: #a79fb8;
+  --text-faint: #756d87;
+
+  --d1: #ff6b5b; /* día 1 — cuádriceps + glúteos */
+  --d2: #3fc1c9; /* día 2 — tren superior */
+  --d3: #f2a93b; /* día 3 — glúteos + femorales */
+  --d4: #d65db1; /* día 4 — superior + glúteo */
+
+  --accent: var(--d1);
+
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 24px;
+
+  --shadow: 0 10px 30px -12px rgba(0,0,0,.55);
+  --shadow-lg: 0 24px 60px -20px rgba(0,0,0,.65);
+
+  --font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --font-body: 'Manrope', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+}
+
+/* body carries a day class on routine pages so every component below
+   can reference --accent without repeating logic per page */
+body.day-1{ --accent: var(--d1); }
+body.day-2{ --accent: var(--d2); }
+body.day-3{ --accent: var(--d3); }
+body.day-4{ --accent: var(--d4); }
+
+*{ box-sizing: border-box; }
+
+html{ scroll-behavior: smooth; }
+
+body{
+  background:
+    radial-gradient(1100px 520px at 12% -10%, rgba(255,255,255,.05), transparent 60%),
+    radial-gradient(900px 460px at 100% 0%, rgba(255,255,255,.035), transparent 55%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+a{ color: inherit; text-decoration: none; }
+
+::selection{ background: var(--accent); color: #14101c; }
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+/* ==========================================================================
+   Utilidades tipográficas
+   ========================================================================== */
+.eyebrow{
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.display{
+  font-family: var(--font-display);
+  letter-spacing: .01em;
+  line-height: .92;
+  text-transform: uppercase;
+}
+
+.font-mono{ font-family: var(--font-mono); }
+
+.text-muted-soft{ color: var(--text-muted); }
+
+/* ==========================================================================
+   Navbar
+   ========================================================================== */
+.navbar-rutina{
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  background: rgba(26, 21, 35, .55);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid transparent;
+  transition: background .3s ease, border-color .3s ease, padding .3s ease;
+  padding: .9rem 0;
+}
+.navbar-rutina.is-scrolled{
+  background: rgba(20, 16, 28, .82);
+  border-bottom-color: var(--border);
+  padding: .55rem 0;
+}
+.navbar-rutina .brand{
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: .04em;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+.navbar-rutina .brand .bi{ color: var(--accent, var(--d1)); }
+.navbar-rutina .nav-link{
+  font-size: .82rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: .4rem .85rem !important;
+  border-radius: 999px;
+  transition: color .2s ease, background .2s ease;
+}
+.navbar-rutina .nav-link:hover{ color: var(--text); background: rgba(255,255,255,.05); }
+.navbar-rutina .nav-link.active{ color: var(--bg); background: var(--accent, var(--d1)); font-weight: 700; }
+
+/* ==========================================================================
+   Hero (index)
+   ========================================================================== */
+.hero{
+  padding: 5.5rem 0 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before{
+  content: "";
+  position: absolute;
+  inset: -40% -10% auto -10%;
+  height: 480px;
+  background: conic-gradient(from 200deg, var(--d1), var(--d2), var(--d3), var(--d4), var(--d1));
+  filter: blur(120px);
+  opacity: .16;
+  pointer-events: none;
+}
+.hero h1{
+  font-size: clamp(3.2rem, 9vw, 6.2rem);
+}
+.hero .lead-copy{
+  max-width: 46ch;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+/* ---- weekly ring -------------------------------------------------------- */
+.weekly-ring-wrap{
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+}
+.weekly-ring{
+  --ring-size: 168px;
+  width: var(--ring-size);
+  height: var(--ring-size);
+  border-radius: 50%;
+  position: relative;
+  flex: 0 0 auto;
+  background: conic-gradient(var(--surface-2) 0% 100%);
+  transition: background 1s ease;
+}
+.weekly-ring::after{
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  background: var(--bg-soft);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+.weekly-ring .ring-center{
+  position: absolute;
+  inset: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  text-align: center;
+}
+.weekly-ring .ring-count{
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1;
+}
+.weekly-ring .ring-label{
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-top: .2rem;
+}
+.ring-legend{ display: flex; flex-direction: column; gap: .45rem; }
+.ring-legend .legend-item{
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .82rem; color: var(--text-muted);
+}
+.ring-legend .dot{ width: 9px; height: 9px; border-radius: 50%; flex: none; }
+
+/* ==========================================================================
+   Day cards (index)
+   ========================================================================== */
+.day-card{
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.7rem 1.6rem 1.5rem;
+  height: 100%;
+  overflow: hidden;
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease, border-color .35s ease;
+}
+.day-card::before{
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: var(--card-accent, var(--d1));
+}
+.day-card:hover{
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-strong);
+}
+.day-card .day-icon{
+  width: 46px; height: 46px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--card-accent, var(--d1)) 18%, transparent);
+  color: var(--card-accent, var(--d1));
+  font-size: 1.2rem;
+}
+.day-card .day-num{
+  font-family: var(--font-display);
+  font-size: 3.4rem;
+  line-height: .85;
+  color: var(--card-accent, var(--d1));
+  margin: .6rem 0 0;
+}
+.day-card h3{
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 1.15rem;
+  margin: .1rem 0 .8rem;
+}
+.day-card .tag-row{ display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: 1.1rem; }
+.day-card .tag{
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  letter-spacing: .04em;
+  padding: .28rem .6rem;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+.day-card .card-foot{
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: auto;
+  padding-top: .9rem;
+  border-top: 1px dashed var(--border);
+}
+.day-card .go{
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  letter-spacing: .05em;
+  color: var(--card-accent, var(--d1));
+  display: inline-flex; align-items: center; gap: .35rem;
+  transition: gap .25s ease;
+}
+.day-card:hover .go{ gap: .65rem; }
+.day-card{ display: flex; flex-direction: column; }
+
+/* ==========================================================================
+   Day header (páginas de rutina)
+   ========================================================================== */
+.day-header{
+  padding: 3.2rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.day-header .kicker{
+  color: var(--accent);
+  font-family: var(--font-mono);
+  letter-spacing: .16em;
+  font-size: .75rem;
+  text-transform: uppercase;
+}
+.day-header h1{ font-size: clamp(2.6rem, 6vw, 4.2rem); }
+.day-header .tag-row{ display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .9rem; }
+.day-header .tag{
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  padding: .3rem .65rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+}
+
+/* progress bar de la sesión */
+.session-progress{
+  margin-top: 1.6rem;
+  max-width: 480px;
+}
+.session-progress .bar{
+  height: 8px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.session-progress .fill{
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width .5s cubic-bezier(.2,.8,.2,1);
+}
+.session-progress .meta{
+  display: flex; justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  color: var(--text-faint);
+  margin-top: .4rem;
+}
+.reset-btn{
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  color: var(--text-faint);
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  padding: .4rem .8rem;
+  border-radius: 999px;
+  display: inline-flex; align-items: center; gap: .4rem;
+  transition: color .2s ease, border-color .2s ease, background .2s ease;
+}
+.reset-btn:hover{ color: var(--text); border-color: var(--text-faint); background: rgba(255,255,255,.04); }
+
+/* ==========================================================================
+   Secciones de contenido
+   ========================================================================== */
+.section-block{ padding: 2.6rem 0; }
+.section-title{
+  display: flex; align-items: center; gap: .6rem;
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  letter-spacing: .02em;
+  margin-bottom: 1.1rem;
+}
+.section-title .bi{ color: var(--accent); font-size: 1.15rem; }
+.section-sub{
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  color: var(--text-faint);
+  margin-left: .2rem;
+}
+.group-label{
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--accent);
+  margin: 1.5rem 0 .6rem;
+  display: flex; align-items: center; gap: .6rem;
+}
+.group-label::after{ content:""; flex:1; height:1px; background: var(--border); }
+
+/* ---- calentamiento (checklist simple) ----------------------------------- */
+.check-item{
+  display: flex; align-items: center; gap: .8rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: .8rem 1rem;
+  margin-bottom: .55rem;
+  transition: border-color .2s ease, background .2s ease;
+}
+.check-item.is-done{ background: var(--surface); border-color: var(--border); opacity: .55; }
+.check-item.is-done .check-item-text{ text-decoration: line-through; }
+.check-item-text{ font-size: .92rem; }
+
+/* ---- botón toggle circular ------------------------------------------------ */
+.check-toggle{
+  background: none; border: none; padding: 0; line-height: 0;
+  color: var(--text-faint);
+  font-size: 1.35rem;
+  flex: none;
+  cursor: pointer;
+  transition: color .2s ease, transform .2s ease;
+}
+.check-toggle:hover{ color: var(--accent); }
+.check-toggle.checked{ color: var(--accent); }
+.check-toggle:active{ transform: scale(.85); }
+
+/* ---- tarjeta de ejercicio ------------------------------------------------ */
+.exercise-card{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem 1.3rem;
+  margin-bottom: .9rem;
+  transition: border-color .25s ease, background .25s ease, opacity .25s ease;
+}
+.exercise-card.is-done{ opacity: .5; }
+.exercise-card.is-done .ex-name{ text-decoration: line-through; }
+.exercise-card .ex-top{
+  display: flex; align-items: flex-start; gap: .9rem;
+}
+.exercise-card .ex-num{
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  color: var(--accent);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  flex: none;
+}
+.exercise-card .ex-name{
+  font-weight: 800;
+  font-size: 1.03rem;
+  margin: 0;
+}
+.exercise-card .ex-series{
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  padding: .15rem .55rem;
+  border-radius: 6px;
+  display: inline-block;
+  margin-top: .3rem;
+}
+.exercise-card .ex-note{
+  color: var(--text-muted);
+  font-size: .88rem;
+  margin: .5rem 0 0 2.7rem;
+}
+.exercise-card .ex-actions{
+  display: flex; gap: .5rem; margin: .9rem 0 0 2.7rem; flex-wrap: wrap;
+}
+.ex-btn{
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  letter-spacing: .02em;
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .42rem .75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--text-muted);
+  transition: all .2s ease;
+}
+.ex-btn:hover{ color: var(--bg); background: var(--accent); border-color: var(--accent); }
+
+/* ---- imagen del ejercicio (thumb + placeholder) --------------------------- */
+.ex-thumb{
+  width: 64px; height: 64px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex: none;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-faint);
+  font-size: 1.2rem;
+}
+.ex-thumb img{ width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.image-slot{
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  aspect-ratio: 4/3;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: .4rem; color: var(--text-faint);
+  overflow: hidden;
+}
+.image-slot img{ width: 100%; height: 100%; object-fit: cover; }
+.image-slot .bi{ font-size: 1.6rem; }
+.image-slot span{ font-family: var(--font-mono); font-size: .68rem; text-align: center; padding: 0 .6rem; }
+
+/* ---- cardio / nota final -------------------------------------------------- */
+.cardio-box{
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 16%, var(--surface)), var(--surface));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.3rem;
+}
+.cardio-box .label{ font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--text-faint); }
+.cardio-box .value{ font-family: var(--font-display); font-size: 1.6rem; color: var(--accent); }
+
+.note-card{
+  border-left: 3px solid var(--accent);
+  background: var(--surface);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: .85rem 1.1rem;
+  font-size: .9rem;
+  color: var(--text-muted);
+  margin-bottom: 1.4rem;
+}
+
+/* ==========================================================================
+   Footer / navegación entre días
+   ========================================================================== */
+.day-nav{
+  padding: 2.6rem 0 4rem;
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;
+}
+.day-nav a{
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-family: var(--font-mono);
+  font-size: .82rem;
+  letter-spacing: .04em;
+  color: var(--text-muted);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  padding: .6rem 1.1rem;
+  transition: all .2s ease;
+}
+.day-nav a:hover{ color: var(--bg); background: var(--accent); border-color: var(--accent); }
+
+.site-footer{
+  border-top: 1px solid var(--border);
+  padding: 1.6rem 0;
+  text-align: center;
+  color: var(--text-faint);
+  font-size: .78rem;
+  font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   Modal de video (tema oscuro)
+   ========================================================================== */
+.modal-content{
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  color: var(--text);
+}
+.modal-header{ border-bottom: 1px solid var(--border); }
+.modal-header .btn-close{ filter: invert(1) grayscale(1); opacity: .7; }
+.ratio-video{ border-radius: var(--radius-sm); overflow: hidden; }
+
+/* ==========================================================================
+   Reveal-on-scroll
+   ========================================================================== */
+.reveal{
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .6s cubic-bezier(.2,.7,.2,1), transform .6s cubic-bezier(.2,.7,.2,1);
+}
+.reveal.is-visible{ opacity: 1; transform: translateY(0); }
+
+/* botón volver arriba */
+.to-top{
+  position: fixed;
+  right: 1.3rem; bottom: 1.3rem;
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity .25s ease, transform .25s ease, background .2s ease;
+  z-index: 1020;
+}
+.to-top.is-visible{ opacity: 1; pointer-events: auto; transform: translateY(0); }
+.to-top:hover{ background: var(--accent); color: var(--bg); }
+
+@media (max-width: 767px){
+  .exercise-card .ex-note,
+  .exercise-card .ex-actions{ margin-left: 0; }
+  .weekly-ring-wrap{ justify-content: center; text-align: center; }
+}
