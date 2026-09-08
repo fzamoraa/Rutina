@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Día 2 — Tren superior · RUTINA</title>
+<title>Día 2 — Tren superior</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;600&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Poppins:wght@300;400;500;600;700&family=Parisienne&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <link rel="stylesheet" href="../css/style.css">
@@ -15,7 +15,7 @@
 
 <nav class="navbar navbar-rutina navbar-expand-md">
   <div class="container">
-    <a class="brand" href="../index.html"><i class="bi bi-lightning-charge-fill"></i>RUTINA</a>
+    <a class="brand" href="../index.html"><i class="bi bi-heart-fill"></i>Liz</a>
     <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
       <i class="bi bi-list fs-2"></i>
     </button>
@@ -33,19 +33,28 @@
 
 <header class="day-header">
   <div class="container">
-    <p class="kicker reveal">Día 2 de 4</p>
-    <h1 class="display reveal">Tren<br>superior</h1>
-    <div class="tag-row reveal">
-      <span class="tag"><i class="bi bi-clock me-1"></i>Calentamiento 5 min</span>
-      <span class="tag"><i class="bi bi-list-check me-1"></i>11 ejercicios</span>
-      <span class="tag"><i class="bi bi-heart-pulse me-1"></i>Cardio 15 min</span>
-    </div>
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <p class="kicker reveal">Día 2 de 4</p>
+        <h1 class="display reveal">Tren<br>superior</h1>
+        <div class="tag-row reveal">
+          <span class="tag"><i class="bi bi-clock me-1"></i>Calentamiento 5 min</span>
+          <span class="tag"><i class="bi bi-list-check me-1"></i>11 ejercicios</span>
+          <span class="tag"><i class="bi bi-heart-pulse me-1"></i>Cardio 15 min</span>
+        </div>
 
-    <div class="session-progress reveal">
-      <div class="bar"><div class="fill" id="progress-fill"></div></div>
-      <div class="meta">
-        <span id="progress-meta">0 / 0 completados</span>
-        <button class="reset-btn" id="reset-day"><i class="bi bi-arrow-counterclockwise"></i> Reiniciar día</button>
+        <div class="session-progress reveal">
+          <div class="bar"><div class="fill" id="progress-fill"></div></div>
+          <div class="meta">
+            <span id="progress-meta">0 / 0 completados</span>
+            <button class="reset-btn" id="reset-day"><i class="bi bi-arrow-counterclockwise"></i> Reiniciar día</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 reveal">
+        <div class="day-photo" id="day-photo">
+          <div class="photo-empty"><i class="bi bi-camera-heart"></i><span>img/nosotros/dia2.jpg</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -79,7 +88,7 @@
   </nav>
 </main>
 
-<footer class="site-footer">Hecho con cariño para tus entrenamientos.</footer>
+<footer class="site-footer">hecho con amor, para ti ♡ att:Fab</footer>
 
 <div class="modal fade" id="mediaModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">

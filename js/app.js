@@ -1,5 +1,5 @@
 /* ==========================================================================
-   RUTINAGYM — app.js
+   NUESTRA RUTINA — app.js
    Una sola fuente de datos (RUTINA) + funciones que dibujan cada página.
 
    VIDEOS: el botón "Ver video" siempre abre YouTube en una pestaña nueva.
@@ -17,7 +17,7 @@
 const RUTINA = {
   1: {
     titulo: "Cuádriceps + Glúteos",
-    color: "#ff6b5b",
+    color: "#b7893f",
     icon: "bi-lightning-charge-fill",
     tags: ["Cuádriceps", "Glúteos", "Abdomen", "Cardio"],
     calentamiento: {
@@ -44,7 +44,7 @@ const RUTINA = {
   },
   2: {
     titulo: "Tren superior",
-    color: "#3fc1c9",
+    color: "#5b9fc4",
     icon: "bi-arrow-up-circle-fill",
     tags: ["Espalda", "Pecho", "Hombros", "Brazos", "Abdomen"],
     calentamiento: {
@@ -74,7 +74,7 @@ const RUTINA = {
   },
   3: {
     titulo: "Glúteos + Femorales",
-    color: "#f2a93b",
+    color: "#8a6a30",
     icon: "bi-fire",
     tags: ["Glúteos", "Femorales", "Abdomen", "Cardio"],
     calentamiento: {
@@ -102,7 +102,7 @@ const RUTINA = {
   },
   4: {
     titulo: "Superior + Glúteo",
-    color: "#d65db1",
+    color: "#3d7996",
     icon: "bi-shuffle",
     tags: ["Espalda", "Hombros", "Glúteos", "Postura"],
     intro: "Queremos mantener el trabajo de arriba pero darle un estímulo extra al glúteo.",
@@ -157,6 +157,60 @@ function toggleId(id) {
   return p[id];
 }
 
+/* ---------- fotos de nosotros (portada, galería, día, detalle) ------------
+   Mismo truco que las fotos de ejercicios: se intenta cargar la imagen y,
+   si no existe todavía, se deja el marcador con el ícono de cámara.
+   Guarda tus fotos en img/nosotros/ con estos nombres exactos:
+     img/nosotros/portada.jpg      -> foto grande de la portada
+     img/nosotros/dia1.jpg ... dia4.jpg -> foto de cada día
+     img/nosotros/galeria-1.jpg ... galeria-4.jpg -> galería "Nuestros momentos"
+     img/nosotros/detalle-1.jpg ... detalle-3.jpg -> detalle circular que
+       aparece rotando en las tarjetas de ejercicio
+   ========================================================================== */
+function attachPhoto(container, path, altText) {
+  if (!container) return;
+  const testImg = new Image();
+  testImg.onload = () => {
+    container.innerHTML = "";
+    const im = document.createElement("img");
+    im.src = path;
+    im.alt = altText || "";
+    container.appendChild(im);
+  };
+  testImg.src = path;
+}
+
+function renderHeroPhoto() {
+  const el = document.getElementById("hero-photo");
+  if (!el) return;
+  attachPhoto(el, "img/nosotros/portada.jpeg", "Nosotros");
+}
+
+function renderDayPhoto(dia) {
+  const el = document.getElementById("day-photo");
+  if (!el) return;
+  attachPhoto(el, `../img/nosotros/dia${dia}.jpeg`, "Nosotros");
+}
+
+function renderGalleryNosotros() {
+  const wrap = document.getElementById("gallery-nosotros");
+  if (!wrap) return;
+  const captions = ["Eres", "el amor", "de mi", "vida"];
+  for (let i = 1; i <= 4; i++) {
+    const fig = document.createElement("figure");
+    fig.className = "polaroid reveal";
+    const frame = document.createElement("div");
+    frame.className = "frame";
+    frame.innerHTML = '<i class="bi bi-camera-heart"></i>';
+    fig.appendChild(frame);
+    const cap = document.createElement("figcaption");
+    cap.textContent = captions[i - 1] || "nosotros";
+    fig.appendChild(cap);
+    wrap.appendChild(fig);
+    attachPhoto(frame, `img/nosotros/galeria-${i}.jpeg`, "Nosotros");
+  }
+}
+
 function youtubeSearchUrl(nombre) {
   return "https://www.youtube.com/results?search_query=" + encodeURIComponent(nombre + " ejercicio técnica");
 }
@@ -187,6 +241,7 @@ function initDayPage(dia) {
   renderEjercicios(dia, data);
   renderAbdomen(dia, data);
   renderCardio(dia, data);
+  renderDayPhoto(dia);
 
   updateSessionProgress(dia);
 
@@ -238,6 +293,13 @@ function buildExerciseCard(dia, prefix, i, ex) {
   const card = document.createElement("div");
   card.className = "exercise-card reveal";
   if (getProgress()[id]) card.classList.add("is-done");
+
+  const heart = document.createElement("div");
+  heart.className = "ex-heart-photo";
+  heart.innerHTML = '<i class="bi bi-heart-fill"></i>';
+  card.appendChild(heart);
+  const detalleN = (i % 3) + 1;
+  attachPhoto(heart, `../img/nosotros/detalle-${detalleN}.jpeg`, "");
 
   const top = document.createElement("div");
   top.className = "ex-top";
@@ -382,6 +444,8 @@ function openImageModal(nombre, imgPath) {
    ========================================================================== */
 function initIndexPage() {
   renderWeeklyRing();
+  renderHeroPhoto();
+  renderGalleryNosotros();
 }
 
 function renderWeeklyRing() {

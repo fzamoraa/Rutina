@@ -1,35 +1,43 @@
 /* ==========================================================================
-   RUTINAGYM — design tokens
-   Paleta: fondo tinta noche (azul-ciruela), un color de acento por día
-   (así el color codifica el grupo muscular, no decora porque sí).
+   NUESTRA RUTINA — design tokens
+   Paleta: blanco cálido + negro + dorado + celeste (su color favorito).
+   Cada día conserva un acento propio, pero dentro de la misma familia
+   dorado/celeste para que todo se sienta como un solo sitio, no un gym.
    ========================================================================== */
 :root{
-  --bg: #1a1523;
-  --bg-soft: #201a2b;
-  --surface: #241d30;
-  --surface-2: #2e2540;
-  --border: rgba(245, 242, 250, .08);
-  --border-strong: rgba(245, 242, 250, .16);
-  --text: #f5f2fa;
-  --text-muted: #a79fb8;
-  --text-faint: #756d87;
+  --bg: #fbfaf8;
+  --bg-soft: #f5f2ec;
+  --surface: #ffffff;
+  --surface-2: #f3efe7;
+  --border: rgba(20, 17, 12, .09);
+  --border-strong: rgba(20, 17, 12, .18);
+  --text: #16140f;
+  --text-muted: #6b665c;
+  --text-faint: #a39d8f;
 
-  --d1: #ff6b5b; /* día 1 — cuádriceps + glúteos */
-  --d2: #3fc1c9; /* día 2 — tren superior */
-  --d3: #f2a93b; /* día 3 — glúteos + femorales */
-  --d4: #d65db1; /* día 4 — superior + glúteo */
+  --gold: #b7893f;
+  --gold-soft: #d9b978;
+  --celeste: #5b9fc4;
+  --celeste-soft: #9cc9e0;
+  --blush: #c98a7a;
+
+  --d1: #b7893f; /* día 1 — cuádriceps + glúteos (dorado) */
+  --d2: #5b9fc4; /* día 2 — tren superior (celeste, su color favorito) */
+  --d3: #8a6a30; /* día 3 — glúteos + femorales (dorado profundo) */
+  --d4: #3d7996; /* día 4 — superior + glúteo (celeste profundo) */
 
   --accent: var(--d1);
 
   --radius-sm: 10px;
-  --radius: 16px;
-  --radius-lg: 24px;
+  --radius: 18px;
+  --radius-lg: 26px;
 
-  --shadow: 0 10px 30px -12px rgba(0,0,0,.55);
-  --shadow-lg: 0 24px 60px -20px rgba(0,0,0,.65);
+  --shadow: 0 10px 30px -14px rgba(20,17,12,.18);
+  --shadow-lg: 0 26px 60px -22px rgba(20,17,12,.22);
 
-  --font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
-  --font-body: 'Manrope', system-ui, -apple-system, sans-serif;
+  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-script: 'Parisienne', cursive;
+  --font-body: 'Poppins', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 }
 
@@ -46,18 +54,19 @@ html{ scroll-behavior: smooth; }
 
 body{
   background:
-    radial-gradient(1100px 520px at 12% -10%, rgba(255,255,255,.05), transparent 60%),
-    radial-gradient(900px 460px at 100% 0%, rgba(255,255,255,.035), transparent 55%),
+    radial-gradient(1100px 520px at 10% -12%, rgba(183,137,63,.07), transparent 60%),
+    radial-gradient(900px 460px at 100% 0%, rgba(91,159,196,.07), transparent 55%),
     var(--bg);
   color: var(--text);
   font-family: var(--font-body);
+  font-weight: 400;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
 
 a{ color: inherit; text-decoration: none; }
 
-::selection{ background: var(--accent); color: #14101c; }
+::selection{ background: var(--gold-soft); color: #16140f; }
 
 @media (prefers-reduced-motion: reduce){
   *{ animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
@@ -76,9 +85,16 @@ a{ color: inherit; text-decoration: none; }
 
 .display{
   font-family: var(--font-display);
+  font-weight: 600;
   letter-spacing: .01em;
-  line-height: .92;
-  text-transform: uppercase;
+  line-height: .98;
+}
+
+.script{
+  font-family: var(--font-script);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--gold);
 }
 
 .font-mono{ font-family: var(--font-mono); }
@@ -92,44 +108,49 @@ a{ color: inherit; text-decoration: none; }
   position: sticky;
   top: 0;
   z-index: 1030;
-  background: rgba(26, 21, 35, .55);
+  background: rgba(251, 250, 248, .72);
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   border-bottom: 1px solid transparent;
   transition: background .3s ease, border-color .3s ease, padding .3s ease;
-  padding: .9rem 0;
+  padding: 1rem 0;
 }
 .navbar-rutina.is-scrolled{
-  background: rgba(20, 16, 28, .82);
+  background: rgba(251, 250, 248, .92);
   border-bottom-color: var(--border);
-  padding: .55rem 0;
+  padding: .6rem 0;
 }
 .navbar-rutina .brand{
   font-family: var(--font-display);
-  font-size: 1.5rem;
-  letter-spacing: .04em;
+  font-weight: 600;
+  font-style: italic;
+  font-size: 1.7rem;
+  letter-spacing: .01em;
   display: inline-flex;
   align-items: center;
   gap: .5rem;
+  color: var(--text);
 }
-.navbar-rutina .brand .bi{ color: var(--accent, var(--d1)); }
+.navbar-rutina .brand .bi{ color: var(--gold); font-size: 1.05rem; }
 .navbar-rutina .nav-link{
-  font-size: .82rem;
-  letter-spacing: .06em;
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--text-muted);
-  padding: .4rem .85rem !important;
+  padding: .45rem .9rem !important;
   border-radius: 999px;
   transition: color .2s ease, background .2s ease;
 }
-.navbar-rutina .nav-link:hover{ color: var(--text); background: rgba(255,255,255,.05); }
-.navbar-rutina .nav-link.active{ color: var(--bg); background: var(--accent, var(--d1)); font-weight: 700; }
+.navbar-rutina .nav-link:hover{ color: var(--text); background: var(--surface-2); }
+.navbar-rutina .nav-link.active{ color: #fff; background: var(--accent, var(--d1)); font-weight: 600; }
+.navbar-toggler .bi{ color: var(--text) !important; }
 
 /* ==========================================================================
    Hero (index)
    ========================================================================== */
 .hero{
-  padding: 5.5rem 0 3rem;
+  padding: 4rem 0 2.5rem;
   position: relative;
   overflow: hidden;
 }
@@ -138,29 +159,95 @@ a{ color: inherit; text-decoration: none; }
   position: absolute;
   inset: -40% -10% auto -10%;
   height: 480px;
-  background: conic-gradient(from 200deg, var(--d1), var(--d2), var(--d3), var(--d4), var(--d1));
-  filter: blur(120px);
-  opacity: .16;
+  background: conic-gradient(from 200deg, var(--gold-soft), var(--celeste-soft), var(--gold-soft));
+  filter: blur(140px);
+  opacity: .22;
   pointer-events: none;
 }
 .hero h1{
-  font-size: clamp(3.2rem, 9vw, 6.2rem);
+  font-size: clamp(2.9rem, 7.5vw, 5.2rem);
+  font-style: italic;
 }
 .hero .lead-copy{
   max-width: 46ch;
   color: var(--text-muted);
-  font-size: 1.05rem;
+  font-size: 1.02rem;
+  font-weight: 300;
+}
+.hero .love-line{
+  font-family: var(--font-script);
+  font-size: 1.7rem;
+  color: var(--gold);
+  display: block;
+  margin-top: .3rem;
 }
 
-/* ---- weekly ring -------------------------------------------------------- */
-.weekly-ring-wrap{
+/* ---- foto grande de portada --------------------------------------------- */
+.hero-photo-wrap{
+  position: relative;
+}
+.hero-photo{
+  position: relative;
+  aspect-ratio: 4/5;
+  width: 100%;
+  max-width: 380px;
+  margin-left: auto;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-lg);
+  background: var(--surface-2);
+}
+.hero-photo::after{
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(255,255,255,.55);
+  border-radius: calc(var(--radius-lg) - 8px);
+  pointer-events: none;
+}
+.hero-photo img{ width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-photo .photo-empty{
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: .6rem; color: var(--text-faint); text-align: center; padding: 1.5rem;
+}
+.hero-photo .photo-empty .bi{ font-size: 1.8rem; color: var(--gold-soft); }
+.hero-photo .photo-empty span{ font-family: var(--font-mono); font-size: .68rem; letter-spacing: .04em; }
+.hero-photo-tag{
+  position: absolute;
+  bottom: -14px; left: -14px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  padding: .5rem 1rem;
+  font-family: var(--font-script);
+  font-size: 1.1rem;
+  color: var(--celeste);
+  box-shadow: var(--shadow);
+  z-index: 2;
+}
+
+/* ---- resumen semanal (versión compacta) --------------------------------- */
+.weekly-strip{
   display: flex;
   align-items: center;
   gap: 1.4rem;
   flex-wrap: wrap;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.3rem;
+  margin-top: 2.2rem;
+}
+.weekly-ring-wrap{
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
 }
 .weekly-ring{
-  --ring-size: 168px;
+  --ring-size: 108px;
   width: var(--ring-size);
   height: var(--ring-size);
   border-radius: 50%;
@@ -172,14 +259,14 @@ a{ color: inherit; text-decoration: none; }
 .weekly-ring::after{
   content: "";
   position: absolute;
-  inset: 14px;
+  inset: 10px;
   border-radius: 50%;
-  background: var(--bg-soft);
+  background: var(--surface);
   box-shadow: inset 0 0 0 1px var(--border);
 }
 .weekly-ring .ring-center{
   position: absolute;
-  inset: 14px;
+  inset: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -189,23 +276,80 @@ a{ color: inherit; text-decoration: none; }
 }
 .weekly-ring .ring-count{
   font-family: var(--font-display);
-  font-size: 2rem;
+  font-weight: 600;
+  font-size: 1.5rem;
   line-height: 1;
 }
 .weekly-ring .ring-label{
   font-family: var(--font-mono);
-  font-size: .62rem;
-  letter-spacing: .12em;
+  font-size: .58rem;
+  letter-spacing: .1em;
   text-transform: uppercase;
   color: var(--text-faint);
   margin-top: .2rem;
 }
-.ring-legend{ display: flex; flex-direction: column; gap: .45rem; }
+.ring-legend{ display: flex; flex-direction: column; gap: .4rem; }
 .ring-legend .legend-item{
   display: flex; align-items: center; gap: .5rem;
-  font-size: .82rem; color: var(--text-muted);
+  font-size: .8rem; color: var(--text-muted);
 }
-.ring-legend .dot{ width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.ring-legend .dot{ width: 8px; height: 8px; border-radius: 50%; flex: none; }
+
+/* ==========================================================================
+   Galería "Nosotros" (index)
+   ========================================================================== */
+.nosotros-section{ padding: 1.5rem 0 .5rem; }
+.nosotros-title{
+  font-family: var(--font-script);
+  font-size: 2.4rem;
+  color: var(--gold);
+  margin-bottom: .1rem;
+}
+.nosotros-sub{
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 1.6rem;
+}
+.gallery-nosotros{
+  display: flex;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+  padding: .5rem 0 1rem;
+}
+.polaroid{
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  padding: .6rem .6rem 1.1rem;
+  box-shadow: var(--shadow);
+  width: 168px;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.polaroid:nth-child(1){ transform: rotate(-4deg); }
+.polaroid:nth-child(2){ transform: rotate(3deg); }
+.polaroid:nth-child(3){ transform: rotate(-2deg); }
+.polaroid:nth-child(4){ transform: rotate(4deg); }
+.polaroid:hover{ transform: rotate(0deg) translateY(-6px); box-shadow: var(--shadow-lg); z-index: 3; }
+.polaroid .frame{
+  aspect-ratio: 1/1;
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--surface-2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-faint);
+}
+.polaroid .frame img{ width: 100%; height: 100%; object-fit: cover; display: block; }
+.polaroid .frame .bi{ font-size: 1.4rem; color: var(--gold-soft); }
+.polaroid figcaption{
+  font-family: var(--font-script);
+  font-size: 1rem;
+  text-align: center;
+  color: var(--text-muted);
+  margin-top: .5rem;
+}
 
 /* ==========================================================================
    Day cards (index)
@@ -236,27 +380,29 @@ a{ color: inherit; text-decoration: none; }
   width: 46px; height: 46px;
   display: inline-flex; align-items: center; justify-content: center;
   border-radius: 12px;
-  background: color-mix(in srgb, var(--card-accent, var(--d1)) 18%, transparent);
+  background: color-mix(in srgb, var(--card-accent, var(--d1)) 14%, transparent);
   color: var(--card-accent, var(--d1));
   font-size: 1.2rem;
 }
 .day-card .day-num{
   font-family: var(--font-display);
-  font-size: 3.4rem;
+  font-weight: 600;
+  font-style: italic;
+  font-size: 3.2rem;
   line-height: .85;
   color: var(--card-accent, var(--d1));
   margin: .6rem 0 0;
 }
 .day-card h3{
   font-family: var(--font-body);
-  font-weight: 800;
-  font-size: 1.15rem;
+  font-weight: 600;
+  font-size: 1.1rem;
   margin: .1rem 0 .8rem;
 }
 .day-card .tag-row{ display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: 1.1rem; }
 .day-card .tag{
   font-family: var(--font-mono);
-  font-size: .68rem;
+  font-size: .66rem;
   letter-spacing: .04em;
   padding: .28rem .6rem;
   border-radius: 999px;
@@ -272,7 +418,7 @@ a{ color: inherit; text-decoration: none; }
 }
 .day-card .go{
   font-family: var(--font-mono);
-  font-size: .78rem;
+  font-size: .76rem;
   letter-spacing: .05em;
   color: var(--card-accent, var(--d1));
   display: inline-flex; align-items: center; gap: .35rem;
@@ -285,27 +431,50 @@ a{ color: inherit; text-decoration: none; }
    Day header (páginas de rutina)
    ========================================================================== */
 .day-header{
-  padding: 3.2rem 0 2rem;
+  padding: 3rem 0 2rem;
   border-bottom: 1px solid var(--border);
   position: relative;
 }
+.day-header .row{ align-items: center; }
 .day-header .kicker{
   color: var(--accent);
   font-family: var(--font-mono);
   letter-spacing: .16em;
-  font-size: .75rem;
+  font-size: .74rem;
   text-transform: uppercase;
 }
-.day-header h1{ font-size: clamp(2.6rem, 6vw, 4.2rem); }
+.day-header h1{ font-size: clamp(2.4rem, 5.6vw, 3.8rem); font-style: italic; }
 .day-header .tag-row{ display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .9rem; }
 .day-header .tag{
   font-family: var(--font-mono);
-  font-size: .72rem;
+  font-size: .7rem;
   padding: .3rem .65rem;
   border-radius: 999px;
   border: 1px solid var(--border-strong);
   color: var(--text-muted);
 }
+
+/* ---- foto del día -------------------------------------------------------- */
+.day-photo{
+  position: relative;
+  aspect-ratio: 1/1;
+  width: 100%;
+  max-width: 220px;
+  margin-left: auto;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow);
+  background: var(--surface-2);
+}
+.day-photo img{ width: 100%; height: 100%; object-fit: cover; display: block; }
+.day-photo .photo-empty{
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: .4rem; color: var(--text-faint); text-align: center; padding: 1rem;
+}
+.day-photo .photo-empty .bi{ font-size: 1.4rem; color: var(--gold-soft); }
+.day-photo .photo-empty span{ font-family: var(--font-mono); font-size: .62rem; }
 
 /* progress bar de la sesión */
 .session-progress{
@@ -313,7 +482,7 @@ a{ color: inherit; text-decoration: none; }
   max-width: 480px;
 }
 .session-progress .bar{
-  height: 8px;
+  height: 7px;
   border-radius: 999px;
   background: var(--surface-2);
   overflow: hidden;
@@ -334,7 +503,7 @@ a{ color: inherit; text-decoration: none; }
 }
 .reset-btn{
   font-family: var(--font-mono);
-  font-size: .74rem;
+  font-size: .72rem;
   color: var(--text-faint);
   border: 1px solid var(--border-strong);
   background: transparent;
@@ -343,29 +512,31 @@ a{ color: inherit; text-decoration: none; }
   display: inline-flex; align-items: center; gap: .4rem;
   transition: color .2s ease, border-color .2s ease, background .2s ease;
 }
-.reset-btn:hover{ color: var(--text); border-color: var(--text-faint); background: rgba(255,255,255,.04); }
+.reset-btn:hover{ color: var(--text); border-color: var(--text-faint); background: var(--surface-2); }
 
 /* ==========================================================================
    Secciones de contenido
    ========================================================================== */
-.section-block{ padding: 2.6rem 0; }
+.section-block{ padding: 2.4rem 0; }
 .section-title{
   display: flex; align-items: center; gap: .6rem;
   font-family: var(--font-display);
-  font-size: 1.7rem;
-  letter-spacing: .02em;
+  font-weight: 600;
+  font-style: italic;
+  font-size: 1.65rem;
+  letter-spacing: .01em;
   margin-bottom: 1.1rem;
 }
-.section-title .bi{ color: var(--accent); font-size: 1.15rem; }
+.section-title .bi{ color: var(--accent); font-size: 1.1rem; }
 .section-sub{
   font-family: var(--font-mono);
-  font-size: .78rem;
+  font-size: .76rem;
   color: var(--text-faint);
   margin-left: .2rem;
 }
 .group-label{
   font-family: var(--font-mono);
-  font-size: .7rem;
+  font-size: .68rem;
   text-transform: uppercase;
   letter-spacing: .14em;
   color: var(--accent);
@@ -392,7 +563,7 @@ a{ color: inherit; text-decoration: none; }
 .check-toggle{
   background: none; border: none; padding: 0; line-height: 0;
   color: var(--text-faint);
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   flex: none;
   cursor: pointer;
   transition: color .2s ease, transform .2s ease;
@@ -403,6 +574,7 @@ a{ color: inherit; text-decoration: none; }
 
 /* ---- tarjeta de ejercicio ------------------------------------------------ */
 .exercise-card{
+  position: relative;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -410,14 +582,14 @@ a{ color: inherit; text-decoration: none; }
   margin-bottom: .9rem;
   transition: border-color .25s ease, background .25s ease, opacity .25s ease;
 }
-.exercise-card.is-done{ opacity: .5; }
+.exercise-card.is-done{ opacity: .55; }
 .exercise-card.is-done .ex-name{ text-decoration: line-through; }
 .exercise-card .ex-top{
   display: flex; align-items: flex-start; gap: .9rem;
 }
 .exercise-card .ex-num{
   font-family: var(--font-mono);
-  font-size: .78rem;
+  font-size: .76rem;
   color: var(--accent);
   border: 1px solid var(--border-strong);
   border-radius: 8px;
@@ -426,15 +598,15 @@ a{ color: inherit; text-decoration: none; }
   flex: none;
 }
 .exercise-card .ex-name{
-  font-weight: 800;
-  font-size: 1.03rem;
+  font-weight: 600;
+  font-size: 1.02rem;
   margin: 0;
 }
 .exercise-card .ex-series{
   font-family: var(--font-mono);
-  font-size: .78rem;
+  font-size: .76rem;
   color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
   padding: .15rem .55rem;
   border-radius: 6px;
   display: inline-block;
@@ -450,7 +622,7 @@ a{ color: inherit; text-decoration: none; }
 }
 .ex-btn{
   font-family: var(--font-mono);
-  font-size: .74rem;
+  font-size: .72rem;
   letter-spacing: .02em;
   display: inline-flex; align-items: center; gap: .4rem;
   padding: .42rem .75rem;
@@ -460,7 +632,7 @@ a{ color: inherit; text-decoration: none; }
   color: var(--text-muted);
   transition: all .2s ease;
 }
-.ex-btn:hover{ color: var(--bg); background: var(--accent); border-color: var(--accent); }
+.ex-btn:hover{ color: #fff; background: var(--accent); border-color: var(--accent); }
 
 /* ---- imagen del ejercicio (thumb + placeholder) --------------------------- */
 .ex-thumb{
@@ -472,7 +644,7 @@ a{ color: inherit; text-decoration: none; }
   background: var(--surface-2);
   display: flex; align-items: center; justify-content: center;
   color: var(--text-faint);
-  font-size: 1.2rem;
+  font-size: 1.15rem;
 }
 .ex-thumb img{ width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -486,19 +658,35 @@ a{ color: inherit; text-decoration: none; }
   overflow: hidden;
 }
 .image-slot img{ width: 100%; height: 100%; object-fit: cover; }
-.image-slot .bi{ font-size: 1.6rem; }
+.image-slot .bi{ font-size: 1.6rem; color: var(--gold-soft); }
 .image-slot span{ font-family: var(--font-mono); font-size: .68rem; text-align: center; padding: 0 .6rem; }
+
+/* ---- pequeño detalle "nosotros" en cada ejercicio ------------------------- */
+.ex-heart-photo{
+  position: absolute;
+  top: -8px; right: 14px;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--surface);
+  box-shadow: 0 0 0 1px var(--border-strong), var(--shadow);
+  background: var(--surface-2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold-soft);
+  font-size: .85rem;
+}
+.ex-heart-photo img{ width: 100%; height: 100%; object-fit: cover; display: block; }
 
 /* ---- cardio / nota final -------------------------------------------------- */
 .cardio-box{
   display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
-  background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 16%, var(--surface)), var(--surface));
+  background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 12%, var(--surface)), var(--surface));
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1.1rem 1.3rem;
 }
 .cardio-box .label{ font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--text-faint); }
-.cardio-box .value{ font-family: var(--font-display); font-size: 1.6rem; color: var(--accent); }
+.cardio-box .value{ font-family: var(--font-display); font-weight: 600; font-style: italic; font-size: 1.5rem; color: var(--accent); }
 
 .note-card{
   border-left: 3px solid var(--accent);
@@ -520,7 +708,7 @@ a{ color: inherit; text-decoration: none; }
 .day-nav a{
   display: inline-flex; align-items: center; gap: .6rem;
   font-family: var(--font-mono);
-  font-size: .82rem;
+  font-size: .8rem;
   letter-spacing: .04em;
   color: var(--text-muted);
   border: 1px solid var(--border-strong);
@@ -528,19 +716,21 @@ a{ color: inherit; text-decoration: none; }
   padding: .6rem 1.1rem;
   transition: all .2s ease;
 }
-.day-nav a:hover{ color: var(--bg); background: var(--accent); border-color: var(--accent); }
+.day-nav a:hover{ color: #fff; background: var(--accent); border-color: var(--accent); }
 
 .site-footer{
   border-top: 1px solid var(--border);
-  padding: 1.6rem 0;
+  padding: 1.8rem 0;
   text-align: center;
   color: var(--text-faint);
-  font-size: .78rem;
-  font-family: var(--font-mono);
+  font-size: .8rem;
+  font-family: var(--font-script);
+  font-size: 1.15rem;
+  color: var(--gold);
 }
 
 /* ==========================================================================
-   Modal de video (tema oscuro)
+   Modal de video / foto (tema claro)
    ========================================================================== */
 .modal-content{
   background: var(--surface);
@@ -549,7 +739,7 @@ a{ color: inherit; text-decoration: none; }
   color: var(--text);
 }
 .modal-header{ border-bottom: 1px solid var(--border); }
-.modal-header .btn-close{ filter: invert(1) grayscale(1); opacity: .7; }
+.modal-header .btn-close{ opacity: .6; }
 .ratio-video{ border-radius: var(--radius-sm); overflow: hidden; }
 
 /* ==========================================================================
@@ -568,20 +758,24 @@ a{ color: inherit; text-decoration: none; }
   right: 1.3rem; bottom: 1.3rem;
   width: 46px; height: 46px;
   border-radius: 50%;
-  background: var(--surface-2);
+  background: var(--surface);
   border: 1px solid var(--border-strong);
   color: var(--text);
   display: flex; align-items: center; justify-content: center;
   opacity: 0; pointer-events: none;
   transform: translateY(10px);
-  transition: opacity .25s ease, transform .25s ease, background .2s ease;
+  transition: opacity .25s ease, transform .25s ease, background .2s ease, color .2s ease;
   z-index: 1020;
+  box-shadow: var(--shadow);
 }
 .to-top.is-visible{ opacity: 1; pointer-events: auto; transform: translateY(0); }
-.to-top:hover{ background: var(--accent); color: var(--bg); }
+.to-top:hover{ background: var(--accent); color: #fff; }
 
 @media (max-width: 767px){
   .exercise-card .ex-note,
   .exercise-card .ex-actions{ margin-left: 0; }
   .weekly-ring-wrap{ justify-content: center; text-align: center; }
+  .hero-photo{ max-width: 280px; margin: 0 auto; }
+  .day-photo{ max-width: 160px; margin: 1.2rem auto 0; }
+  .polaroid{ width: 42%; }
 }
